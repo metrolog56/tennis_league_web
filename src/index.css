@@ -1,0 +1,120 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: #1e293b;
+  background-color: #f8fafc;
+  line-height: 1.45;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.tab-link {
+  text-decoration: none;
+  color: #334155;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: white;
+}
+
+.tab-link-active {
+  background: #e2e8f0;
+  font-weight: 600;
+}
+
+.page {
+  display: block;
+}
+
+.center {
+  min-height: 80vh;
+  display: grid;
+  place-items: center;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.auth-card {
+  width: min(560px, 100%);
+}
+
+.grid-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+input,
+select,
+button {
+  font: inherit;
+  padding: 0.6rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+button {
+  cursor: pointer;
+  background: #0f172a;
+  color: white;
+}
+
+.ghost-button {
+  background: white;
+  color: #0f172a;
+}
+
+.hint {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  padding: 0.6rem 0.2rem;
+}
