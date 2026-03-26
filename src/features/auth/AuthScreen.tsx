@@ -32,7 +32,7 @@ export function AuthScreen() {
     <main className="page center">
       <section className="card glass auth-card">
         <h1 className="h1">Лига настольного тенниса</h1>
-        <p>Вход без пароля: отправим magic link на рабочую почту.</p>
+        <p>Вход без пароля: отправим magic link на твою почту.</p>
         <form className="stack" onSubmit={onSubmit}>
           <label className="stack" htmlFor="email">
             <span>Email</span>
@@ -47,7 +47,7 @@ export function AuthScreen() {
             />
           </label>
           <button disabled={busy} type="submit">
-            {busy ? "Отправляем..." : "Войти по ссылке"}
+            {busy ? "Отправляем..." : "Получить ссылку для входа"}
           </button>
         </form>
         {message ? <p className="hint">{message}</p> : null}

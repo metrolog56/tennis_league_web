@@ -26,6 +26,26 @@ Deno.serve(async (request) => {
     });
   }
 
+  const authHeader = request.headers.get("Authorization") ?? "";
+  const token = authHeader.replace(/^Bearer\s+/i, "");
+  if (!token) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      headers: jsonHeaders,
+      status: 401,
+    });
+  }
+
+  const {
+    data: { user },
+    error: userErr,
+  } = await client.auth.getUser(token);
+  if (userErr || !user) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      headers: jsonHeaders,
+      status: 401,
+    });
+  }
+
   const payload = (await request.json()) as Payload;
   if (!payload.match_id) {
     return new Response(JSON.stringify({ error: "match_id is required" }), {
@@ -36,7 +56,9 @@ Deno.serve(async (request) => {
 
   const { data: match, error: matchError } = await client
     .from("matches")
-    .select("id, division_id, player1_id, player2_id, sets_player1, sets_player2")
+    .select(
+      "id, division_id, player1_id, player2_id, sets_player1, sets_player2, status",
+    )
     .eq("id", payload.match_id)
     .single();
 
@@ -44,6 +66,42 @@ Deno.serve(async (request) => {
     return new Response(
       JSON.stringify({ error: matchError?.message ?? "Match not found" }),
       { headers: jsonHeaders, status: 404 },
+    );
+  }
+
+  if (match.status !== "played") {
+    return new Response(
+      JSON.stringify({ error: "Rating can be calculated only for played matches" }),
+      { headers: jsonHeaders, status: 409 },
+    );
+  }
+
+  if (user.id !== match.player1_id && user.id !== match.player2_id) {
+    return new Response(JSON.stringify({ error: "Forbidden" }), {
+      headers: jsonHeaders,
+      status: 403,
+    });
+  }
+
+  // Idempotency: if we've already calculated rating for this match,
+  // don't insert duplicate rating_history rows.
+  const { data: already } = await client
+    .from("rating_history")
+    .select("id")
+    .eq("match_id", match.id)
+    .limit(1);
+
+  if (already && already.length > 0) {
+    return new Response(JSON.stringify({ ok: true, alreadyCalculated: true }), {
+      headers: jsonHeaders,
+      status: 200,
+    });
+  }
+
+  if (Number(match.sets_player1) === Number(match.sets_player2)) {
+    return new Response(
+      JSON.stringify({ error: "Invalid match score: tie not supported" }),
+      { headers: jsonHeaders, status: 422 },
     );
   }
 
