@@ -8,10 +8,9 @@ import {
 } from "react-router-dom";
 import { AuthScreen } from "./features/auth/AuthScreen";
 import { HomeScreen } from "./features/home/HomeScreen";
-import { InvitesScreen } from "./features/invites/InvitesScreen";
-import { LeagueScreen } from "./features/league/LeagueScreen";
 import { NotificationsScreen } from "./features/notifications/NotificationsScreen";
 import { RatingScreen } from "./features/rating/RatingScreen";
+import { DivisionsScreen } from "./features/divisions/DivisionsScreen";
 import { supabase } from "./lib/supabase";
 
 function App() {
@@ -41,10 +40,9 @@ function App() {
 
   const navItems = useMemo(
     () => [
-      { to: "/home", title: "Главная", short: "Дом" },
-      { to: "/invites", title: "Приглашения", short: "Игры" },
-      { to: "/league", title: "Лига", short: "Лига" },
-      { to: "/rating", title: "Рейтинг", short: "Топ" },
+      { to: "/home", title: "Главная", short: "Главная" },
+      { to: "/rating", title: "Рейтинг", short: "Рейтинг" },
+      { to: "/divisions", title: "Дивизионы", short: "Дивизионы" },
       { to: "/notifications", title: "Уведомления", short: "🔔" },
     ],
     [],
@@ -64,9 +62,6 @@ function App() {
         <header className="topbar glass">
           <div className="topbar-title">
             <h1 className="h1">Лига настольного тенниса</h1>
-            <p className="subtle">
-              Быстрый вход · приглашения · рейтинг · уведомления
-            </p>
           </div>
           <button
             className="ghost-button"
@@ -95,9 +90,8 @@ function App() {
           <Routes>
             <Route element={<Navigate replace to="/home" />} path="/" />
             <Route element={<HomeScreen />} path="/home" />
-            <Route element={<InvitesScreen />} path="/invites" />
-            <Route element={<LeagueScreen />} path="/league" />
             <Route element={<RatingScreen />} path="/rating" />
+            <Route element={<DivisionsScreen />} path="/divisions" />
             <Route element={<NotificationsScreen />} path="/notifications" />
           </Routes>
         </main>
