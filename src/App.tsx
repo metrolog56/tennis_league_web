@@ -41,11 +41,11 @@ function App() {
 
   const navItems = useMemo(
     () => [
-      { to: "/home", title: "Главная" },
-      { to: "/invites", title: "Приглашения" },
-      { to: "/league", title: "Лига" },
-      { to: "/rating", title: "Рейтинг" },
-      { to: "/notifications", title: "Уведомления" },
+      { to: "/home", title: "Главная", short: "Дом" },
+      { to: "/invites", title: "Приглашения", short: "Игры" },
+      { to: "/league", title: "Лига", short: "Лига" },
+      { to: "/rating", title: "Рейтинг", short: "Топ" },
+      { to: "/notifications", title: "Уведомления", short: "🔔" },
     ],
     [],
   );
@@ -61,10 +61,12 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-shell">
-        <header className="topbar">
-          <div>
-            <h1>Лига настольного тенниса</h1>
-            <p>Сотрудники: быстрый вход, приглашения, рейтинг, уведомления</p>
+        <header className="topbar glass">
+          <div className="topbar-title">
+            <h1 className="h1">Лига настольного тенниса</h1>
+            <p className="subtle">
+              Быстрый вход · приглашения · рейтинг · уведомления
+            </p>
           </div>
           <button
             className="ghost-button"
@@ -75,7 +77,7 @@ function App() {
           </button>
         </header>
 
-        <nav className="tabs">
+        <nav className="tabs tabs-desktop">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
@@ -89,7 +91,7 @@ function App() {
           ))}
         </nav>
 
-        <main className="page">
+        <main className="page page-content safe-area-pb">
           <Routes>
             <Route element={<Navigate replace to="/home" />} path="/" />
             <Route element={<HomeScreen />} path="/home" />
@@ -99,6 +101,20 @@ function App() {
             <Route element={<NotificationsScreen />} path="/notifications" />
           </Routes>
         </main>
+
+        <nav className="tabs tabs-mobile glass-nav safe-area-pb">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              className={({ isActive }) =>
+                `tab-link tab-link-mobile ${isActive ? "tab-link-active" : ""}`
+              }
+              to={item.to}
+            >
+              {item.short}
+            </NavLink>
+          ))}
+        </nav>
       </div>
     </BrowserRouter>
   );

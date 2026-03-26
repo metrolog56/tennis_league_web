@@ -30,8 +30,8 @@ export function AuthScreen() {
 
   return (
     <main className="page center">
-      <section className="card auth-card">
-        <h1>Лига настольного тенниса</h1>
+      <section className="card glass auth-card">
+        <h1 className="h1">Лига настольного тенниса</h1>
         <p>Вход без пароля: отправим magic link на рабочую почту.</p>
         <form className="stack" onSubmit={onSubmit}>
           <label className="stack" htmlFor="email">

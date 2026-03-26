@@ -84,8 +84,8 @@ export function InvitesScreen() {
 
   return (
     <section className="stack">
-      <div className="card">
-        <h2>Приглашения</h2>
+      <div className="card glass">
+        <h2 className="h2">Приглашения</h2>
         <p className="hint">
           Пока упрощенно: создание чернового приглашения самому себе для проверки
           схемы и Realtime.
@@ -122,8 +122,8 @@ export function InvitesScreen() {
         </form>
         {message ? <p className="hint">{message}</p> : null}
       </div>
-      <div className="card">
-        <h3>Последние приглашения</h3>
+      <div className="card glass-lite">
+        <h3 className="h3">Последние приглашения</h3>
         <ul>
           {invites.map((invite) => (
             <li key={invite.id}>

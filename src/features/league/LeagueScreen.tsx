@@ -34,39 +34,41 @@ export function LeagueScreen() {
   }, []);
 
   return (
-    <section className="card">
-      <h2>Таблица дивизиона (MVP)</h2>
+    <section className="card glass-lite">
+      <h2 className="h2">Таблица дивизиона (MVP)</h2>
       <p className="hint">
         На текущем шаге показываем сводные данные `division_players`.
       </p>
       {message ? <p className="hint">{message}</p> : null}
-      <table>
-        <thead>
-          <tr>
-            <th>Игрок</th>
-            <th>Очки</th>
-            <th>Сеты</th>
-            <th>Дельта рейтинга</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={row.player_id}>
-              <td>{row.player_id.slice(0, 8)}</td>
-              <td>{row.total_points}</td>
-              <td>
-                {row.total_sets_won}:{row.total_sets_lost}
-              </td>
-              <td>{row.rating_delta}</td>
-            </tr>
-          ))}
-          {rows.length === 0 ? (
+      <div className="table-scroll glass-table-wrap glass">
+        <table>
+          <thead>
             <tr>
-              <td colSpan={4}>Нет данных</td>
+              <th>Игрок</th>
+              <th>Очки</th>
+              <th>Сеты</th>
+              <th>Δ рейтинг</th>
             </tr>
-          ) : null}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.player_id}>
+                <td>{row.player_id.slice(0, 8)}</td>
+                <td>{row.total_points}</td>
+                <td>
+                  {row.total_sets_won}:{row.total_sets_lost}
+                </td>
+                <td>{row.rating_delta}</td>
+              </tr>
+            ))}
+            {rows.length === 0 ? (
+              <tr>
+                <td colSpan={4}>Нет данных</td>
+              </tr>
+            ) : null}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }

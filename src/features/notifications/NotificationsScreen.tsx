@@ -54,15 +54,15 @@ export function NotificationsScreen() {
 
   return (
     <section className="stack">
-      <div className="card">
-        <h2>Уведомления</h2>
+      <div className="card glass">
+        <h2 className="h2">Уведомления</h2>
         <button onClick={() => void requestPushPermission()} type="button">
           Включить push в браузере
         </button>
         {message ? <p className="hint">{message}</p> : null}
       </div>
-      <div className="card">
-        <h3>Лента уведомлений</h3>
+      <div className="card glass-lite">
+        <h3 className="h3">Лента уведомлений</h3>
         <ul>
           {notifications.map((notification) => (
             <li key={notification.id}>

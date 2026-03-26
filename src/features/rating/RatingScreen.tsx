@@ -29,8 +29,8 @@ export function RatingScreen() {
   }, []);
 
   return (
-    <section className="card">
-      <h2>Общий рейтинг</h2>
+    <section className="card glass">
+      <h2 className="h2">Общий рейтинг</h2>
       {message ? <p className="hint">{message}</p> : null}
       <ol>
         {players.map((player) => (
